@@ -1,0 +1,31 @@
+{
+  "name": "bella-app",
+  "version": "1.0.0",
+  "description": "bella-website",
+  "author": "LAPTOP-VLTG7F2E\norbert.helmuth",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/bulma": "^1.2.1",
+    "cross-env": "^5.2.0",
+    "imagesloaded": "^4.1.4",
+    "marked": "^0.6.2",
+    "masonry-layout": "^4.2.2",
+    "nuxt": "^2.4.0",
+    "storyblok-nuxt": "^1.0.1",
+    "vue-masonry": "^0.11.7"
+  },
+  "devDependencies": {
+    "node-sass": "^4.12.0",
+    "nodemon": "^1.18.9",
+    "nuxt-sass-resources-loader": "^2.0.5",
+    "sass-loader": "^7.1.0",
+    "vue-style-loader": "^4.1.2"
+  }
+}
