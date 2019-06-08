@@ -2,23 +2,29 @@
   <div class="container">
     <div class="columns">
       <div class="column is-12">
-        <button @click="changeCategory">test</button>
+        <button @click="changeCategory">{{selectedCategory}}</button>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { mapState, mapMutations } from "vuex";
+
 export default {
   data() {
     return {
       filterKey: "Category",
-      categoryList: ["buchete", "decoratiuni"],
-      category: "buchete"
+      categoryList: ["buchete", "decoratiuni"]
     };
+  },
+  computed: {
+    ...mapState({
+      selectedCategory: state => state.selectedCategory
+    })
   },
   methods: {
     changeCategory: function() {
-      this.$emit("changeCategory", "decoratiuni");
+      this.$store.commit("setCategory", "buchete");
     }
   }
 };

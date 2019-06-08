@@ -1,24 +1,54 @@
 import Vuex from "vuex";
+import Axios from "axios";
 
 const createStore = () => {
   return new Vuex.Store({
     state: {
       cacheVersion: "",
-      products: {}
-    },
-    mutations: {
-      setCacheVersion(state, version) {
-        state.cacheVersion = version;
-      },
-      addProducts(state, payload) {
-        state.products = payload;
-      }
+      products: {},
+      selectedCategory: "decoratiuni"
     },
     actions: {
       loadCacheVersion({ commit }) {
         return this.$storyapi.get(`cdn/spaces/me`).then(res => {
           commit("setCacheVersion", res.data.space.version);
         });
+      },
+      async nuxtServerInit(context) {
+        return Axios.get(
+          `https://api.storyblok.com/v1/cdn/stories?filter_query[Category][in]=${
+            context.state.selectedCategory
+          }&starts_with=product/&token=QUIQ5hXwSU4OFrkUpU3tswtt`
+        )
+          .then(response => {
+            context.commit("SET_PRODUCTS", response.data.stories);
+            return Promise.resolve();
+          })
+          .catch(err => {
+            return Promise().reject();
+          });
+      },
+      loadNewCategory(context) {
+        context.commit("SET_CATEGORY", context.state.selectedCategory);
+      }
+    },
+    getters: {
+      GET_PRODUCTS(state) {
+        return state.products;
+      },
+      GET_CATEGORY(state) {
+        return state.selectedCategory;
+      }
+    },
+    mutations: {
+      setCacheVersion(state, version) {
+        state.cacheVersion = version;
+      },
+      SET_PRODUCTS(state, payload) {
+        state.products = payload;
+      },
+      SET_CATEGORY(state, payload) {
+        state.selectedCategory = payload;
       }
     }
   });
@@ -41,3 +71,5 @@ export default createStore;
 // https://codesandbox.io/s/kkvr7z5rr3
 
 // https://codesandbox.io/s/m4njk9v4m8
+
+// https://github.com/nuxt/nuxt.js/issues/1693

@@ -1,12 +1,12 @@
 <template>
-  <div class="product-preview">
-    <div class="product-preview-image" :style="{ backgroundImage: `url(${thumbnail})` }"></div>
-    <div class="product-preview-text">
+  <div class="mansory-content">
+    <img :src="imageUrl" alt="#">
+    <div class="masonry-title">
       <h2>{{title}}</h2>
       <p>{{price}} Lei</p>
     </div>
     <nuxt-link :to="'product/' + slug">
-      <div class="product-preview-button">Detalii produs</div>
+      <div class="masonry-button">Detalii produs</div>
     </nuxt-link>
   </div>
 </template>
@@ -38,6 +38,9 @@ export default {
   computed: {
     productLink() {
       return this.slug;
+    },
+    imageUrl() {
+      return this.thumbnail;
     }
   }
 };
@@ -46,34 +49,40 @@ export default {
 <style lang="scss" scoped>
 @import "~assets/css/main.scss";
 
-.product-preview {
+.masonry-content {
   font-weight: 600;
   font-family: $family-work-sans;
+  overflow: hidden;
 
-  .product-preview-image {
-    height: 300px;
-    background-position: center;
-    background-size: cover;
-    margin-bottom: 20px;
+  .img {
+    max-width: 100%;
+    vertical-align: middle;
   }
 
-  &:nth-child(2n + 1) {
-    .product-preview-image {
-      height: 330px;
-    }
-  }
+  // .product-preview-image {
+  //   height: 300px;
+  //   background-position: center;
+  //   background-size: cover;
+  //   margin-bottom: 20px;
+  // }
 
-  &:nth-child(3n + 1) {
-    .product-preview-image {
-      height: 320px;
-    }
-  }
+  // &:nth-child(2n + 1) {
+  //   .product-preview-image {
+  //     height: 330px;
+  //   }
+  // }
 
-  &:nth-child(4n + 1) {
-    .product-preview-image {
-      height: 310px;
-    }
-  }
+  // &:nth-child(3n + 1) {
+  //   .product-preview-image {
+  //     height: 320px;
+  //   }
+  // }
+
+  // &:nth-child(4n + 1) {
+  //   .product-preview-image {
+  //     height: 310px;
+  //   }
+  // }
 }
 
 .product-preview-text {
