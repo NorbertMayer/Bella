@@ -78,7 +78,7 @@ export default {
   display: flex;
   justify-content: space-between;
   font-size: $size-4;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   p {
     color: $color-accent;
@@ -88,7 +88,7 @@ export default {
 .item-button {
   text-align: center;
   background: #ffe4e1;
-  padding: 20px 0px;
+  padding: 10px 0px;
   border-radius: 4px;
   color: $color-black;
 
@@ -103,7 +103,7 @@ export default {
   }
   .item {
     width: 100%;
-    padding: 0px 20px 20px 20px;
+    padding: 0px 10px 20px 10px;
   }
 }
 
@@ -114,7 +114,7 @@ export default {
   .item {
     width: 50%;
     padding-bottom: 20px;
-    padding-left: 20px;
+    padding-left: 10px;
   }
 }
 
@@ -125,7 +125,7 @@ export default {
   .item {
     width: 33%;
     padding-bottom: 20px;
-    padding-left: 20px;
+    padding-left: 10px;
   }
 }
 </style>

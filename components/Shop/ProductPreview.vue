@@ -74,27 +74,4 @@ export default {
 .col--1x {
   grid-row-end: span 1;
 }
-
-.product-preview-text {
-  display: flex;
-  justify-content: space-between;
-  font-size: $size-4;
-  margin-bottom: 20px;
-
-  p {
-    color: $color-accent;
-  }
-}
-
-.product-preview-button {
-  text-align: center;
-  background: #ffe4e1;
-  padding: 20px 0px;
-  border-radius: 4px;
-  color: $color-black;
-
-  a {
-    color: $color-black;
-  }
-}
 </style>
