@@ -1,89 +1,131 @@
 <template>
-  <section class="container product-list">
-    <div class="masonry">
-      <ProductPreview
-        class="masonry-brick"
-        v-for="product in products"
-        :key="product.slug"
-        :thumbnail="product.thumbnail"
-        :title="product.title"
-        :price="product.price"
-        :slug="product.slug"
-        :id="product.slug"
-      />
-      <!-- <div v-for="product in products" :key="product.slug" class="masonry-brick">
-        <div class="mansory-content">
-          <img :src="imageUrl" alt="#">
-          <div class="masonry-title">
-            <h2>{{product.title}}</h2>
-            <p>{{product.price}} Lei</p>
-          </div>
-          <nuxt-link :to="'product/' + slug">
-            <div class="masonry-button">Detalii produs</div>
-          </nuxt-link>
+  <div class="container product-list">
+    <div class="viewer">
+      <div class="grid-sizer"></div>
+      <div class="item" v-for="product in products" :key="product.id">
+        <img
+          class="img"
+          v-if="product.thumbnail.length > 0"
+          :src="product.thumbnail | resize('550x0')"
+          :alt="product.title"
+        >
+        <div class="item-content">
+          <h2>{{product.title}}</h2>
+          <p>{{product.price}} Lei</p>
         </div>
-      </div>-->
+        <nuxt-link :to="'product/' + product.slug">
+          <div class="item-button">Detalii produs</div>
+        </nuxt-link>
+      </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
-import ProductPreview from "@/components/Shop/ProductPreview";
+if (process.browser) {
+  var Masonry = require("masonry-layout");
+  var ImagesLoaded = require("imagesloaded");
+}
 
 export default {
-  components: {
-    ProductPreview
-  },
   props: {
     products: {
       type: Array,
       required: true
     }
   },
-  computed: {
-    imageUrl() {
-      return this.products.imageUrl;
-    }
+  data() {
+    return {
+      selector: ".viewer",
+      options: {
+        columnWidth: ".grid-sizer",
+        percentPosition: true,
+        gutter: 0,
+        itemSelector: ".item"
+      }
+    };
   },
   methods: {
-    resizeMasonryItem(item) {
-      let grid = document.getElementsByClassName("masonry")[0],
-        rowGap = parseInt(
-          window.getComputedStyle(grid).getPropertyValue("grid-row-gap")
-        ),
-        rowHeight = parseInt(
-          window.getComputedStyle(grid).getPropertyValue("grid-auto-rows")
-        );
-
-      let rowSpan = Math.ceil(
-        (item.querySelector(".masonry-content").getBoundingClientRect().height +
-          rowGap) /
-          (rowHeight + rowGap)
-      );
-      item.style.gridRowEnd = "span " + rowSpan;
-    },
-    waitForImages() {
-      let allItems = document.getElementsByClassName("masonry-brick");
-      for (var i = 0; i < allItems.length; i++) {
-        imagesLoaded(allItems[i], function(instance) {
-          var item = instance.elements[0];
-          resizeMasonryItem(item);
-        });
-      }
+    loaded() {
+      // all images are loaded
+      ImagesLoaded(this.selector, () => {
+        this.$emit("masonry-images-loaded");
+        // activate mansonry grid
+        let masonry = new Masonry(this.selector, this.options);
+        this.$emit("masonry-loaded", masonry);
+      });
     }
+  },
+  watch: {
+    data() {
+      this.loaded();
+    }
+  },
+  mounted() {
+    this.loaded();
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import "~assets/css/main.scss";
+
 .product-list {
   margin-bottom: 100px;
 }
 
-.masonry {
-  display: grid;
-  grid-gap: 1em;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  grid-auto-rows: 0;
+.item-content {
+  display: flex;
+  justify-content: space-between;
+  font-size: $size-4;
+  margin-bottom: 20px;
+
+  p {
+    color: $color-accent;
+  }
+}
+
+.item-button {
+  text-align: center;
+  background: #ffe4e1;
+  padding: 20px 0px;
+  border-radius: 4px;
+  color: $color-black;
+
+  a {
+    color: $color-black;
+  }
+}
+
+@media only screen and (min-width: 468px) {
+  .grid-sizer {
+    width: 100%;
+  }
+  .item {
+    width: 100%;
+    padding: 0px 20px 20px 20px;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .grid-sizer {
+    width: 50%;
+  }
+  .item {
+    width: 50%;
+    padding-bottom: 20px;
+    padding-left: 20px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .grid-sizer {
+    width: 33%;
+  }
+  .item {
+    width: 33%;
+    padding-bottom: 20px;
+    padding-left: 20px;
+  }
 }
 </style>

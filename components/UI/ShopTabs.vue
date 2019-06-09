@@ -24,6 +24,9 @@
           :class="lineClass"
           :style="{ width: `${activeLineWidth}px`, transform: `translateX(${activeLineOffset}px)` }"
         />
+        <div class="events-tab-leaf">
+          <img src="~/assets/images/tableaf.svg" alt="#">
+        </div>
       </nav>
     </div>
   </div>

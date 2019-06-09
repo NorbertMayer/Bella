@@ -33,6 +33,9 @@ export default {
         id: "snipcart",
         "data-api-key":
           "ZWM1ZGEzMjQtZjgzNy00YTMwLWFjMTctNDFiODNiYjEwOTgzNjM2ODg3Njg3NzkyMzYyMzcx"
+      },
+      {
+        src: "https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"
       }
     ]
   },

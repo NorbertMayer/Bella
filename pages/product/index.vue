@@ -150,7 +150,6 @@ export default {
     //   });
     // }
     getCurrentCategory() {
-      console.log(this.$store.state.selectedCategory);
       return this.$store.state.selectedCategory;
     }
   },

@@ -1,6 +1,12 @@
 <template>
-  <div class="mansory-content">
-    <img :src="imageUrl" alt="#">
+  <!-- <div class="mansory-content .col--2x">
+    <img
+      class="img"
+      v-if="imageUrl.length > 0"
+      :src="imageUrl | resize('450x300')"
+      :alt="imageUrl.title"
+    >
+
     <div class="masonry-title">
       <h2>{{title}}</h2>
       <p>{{price}} Lei</p>
@@ -8,7 +14,9 @@
     <nuxt-link :to="'product/' + slug">
       <div class="masonry-button">Detalii produs</div>
     </nuxt-link>
-  </div>
+  </div>-->
+
+  <div></div>
 </template>
 
 <script>
@@ -42,7 +50,8 @@ export default {
     imageUrl() {
       return this.thumbnail;
     }
-  }
+  },
+  methods: {}
 };
 </script>
 
@@ -53,36 +62,17 @@ export default {
   font-weight: 600;
   font-family: $family-work-sans;
   overflow: hidden;
+  margin-bottom: 20px;
+}
 
-  .img {
-    max-width: 100%;
-    vertical-align: middle;
-  }
-
-  // .product-preview-image {
-  //   height: 300px;
-  //   background-position: center;
-  //   background-size: cover;
-  //   margin-bottom: 20px;
-  // }
-
-  // &:nth-child(2n + 1) {
-  //   .product-preview-image {
-  //     height: 330px;
-  //   }
-  // }
-
-  // &:nth-child(3n + 1) {
-  //   .product-preview-image {
-  //     height: 320px;
-  //   }
-  // }
-
-  // &:nth-child(4n + 1) {
-  //   .product-preview-image {
-  //     height: 310px;
-  //   }
-  // }
+.col--2x {
+  grid-row-end: span 2;
+}
+.col--3x {
+  grid-row-end: span 3;
+}
+.col--1x {
+  grid-row-end: span 1;
 }
 
 .product-preview-text {
