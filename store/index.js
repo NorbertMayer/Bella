@@ -6,31 +6,31 @@ const createStore = () => {
     state: {
       cacheVersion: "",
       products: {},
-      selectedCategory: "decoratiuni"
+      selectedCategory: "buchete"
     },
     actions: {
       loadCacheVersion({ commit }) {
         return this.$storyapi.get(`cdn/spaces/me`).then(res => {
           commit("setCacheVersion", res.data.space.version);
         });
-      },
-      async nuxtServerInit(context) {
-        return Axios.get(
-          `https://api.storyblok.com/v1/cdn/stories?filter_query[Category][in]=${
-            context.state.selectedCategory
-          }&starts_with=product/&token=QUIQ5hXwSU4OFrkUpU3tswtt`
-        )
-          .then(response => {
-            context.commit("SET_PRODUCTS", response.data.stories);
-            return Promise.resolve();
-          })
-          .catch(err => {
-            return Promise().reject();
-          });
-      },
-      loadNewCategory(context) {
-        context.commit("SET_CATEGORY", context.state.selectedCategory);
       }
+      // async nuxtServerInit(context) {
+      //   return Axios.get(
+      //     `https://api.storyblok.com/v1/cdn/stories?filter_query[Category][in]=${
+      //       context.state.selectedCategory
+      //     }&starts_with=product/&token=QUIQ5hXwSU4OFrkUpU3tswtt`
+      //   )
+      //     .then(response => {
+      //       context.commit("SET_PRODUCTS", response.data.stories);
+      //       return Promise.resolve();
+      //     })
+      //     .catch(err => {
+      //       return Promise().reject();
+      //     });
+      // },
+      // loadNewCategory(context) {
+      //   context.commit("SET_CATEGORY", context.state.selectedCategory);
+      // }
     },
     getters: {
       GET_PRODUCTS(state) {
@@ -73,3 +73,5 @@ export default createStore;
 // https://codesandbox.io/s/m4njk9v4m8
 
 // https://github.com/nuxt/nuxt.js/issues/1693
+
+// https://github.com/karambafe/vue-tabs-with-active-line/blob/master/src/VueTabsWithActiveLine.vue
