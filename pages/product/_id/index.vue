@@ -34,9 +34,25 @@
       </div>
     </div>
 
-    <div class="columns is-multiline">
-      <div class="column is-6 single-product-gallery" v-for="image in gallery" :key="image.index">
-        <div class="img-gallery" :style="{ backgroundImage: `url(${image.filename})` }"></div>
+    <div class="viewer">
+      <div class="grid-sizer"></div>
+      <div class="item" v-for="image in gallery" :key="image.index">
+        <img
+          class="img"
+          v-if="image.filename.length > 0"
+          :src="image.filename | resize('550x0')"
+          :alt="image.name"
+        >
+      </div>
+      <!-- icons -->
+      <div class="waves">
+        <img src="~/assets/images/001-sea-waves.svg" alt="#">
+      </div>
+      <div class="more">
+        <img src="~/assets/images/002-more.svg" alt="#">
+      </div>
+      <div class="close">
+        <img src="~/assets/images/003-close.svg" alt="#">
       </div>
     </div>
 
@@ -47,6 +63,11 @@
 <script>
 import Review from "@/components/UI/Review";
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
+
+if (process.browser) {
+  var Masonry = require("masonry-layout");
+  var ImagesLoaded = require("imagesloaded");
+}
 
 const loadProduct = function({
   api,
@@ -94,7 +115,19 @@ export default {
     Breadcrumbs,
     Review
   },
+  data() {
+    return {
+      selector: ".viewer",
+      options: {
+        columnWidth: ".grid-sizer",
+        percentPosition: true,
+        gutter: 0,
+        itemSelector: ".item"
+      }
+    };
+  },
   mounted() {
+    this.loaded();
     this.$storybridge.on(["input", "published", "change"], event => {
       if (event.action == "input") {
         if (event.story.id === this.story.id) {
@@ -132,6 +165,22 @@ export default {
       errorCallback: context.error,
       path: path
     });
+  },
+  methods: {
+    loaded() {
+      // all images are loaded
+      ImagesLoaded(this.selector, () => {
+        this.$emit("masonry-images-loaded");
+        // activate mansonry grid
+        let masonry = new Masonry(this.selector, this.options);
+        this.$emit("masonry-loaded", masonry);
+      });
+    }
+  },
+  watch: {
+    data() {
+      this.loaded();
+    }
   }
 };
 </script>
@@ -200,12 +249,6 @@ export default {
   }
 }
 
-.img-gallery {
-  background-size: cover;
-  background-position: center;
-  height: 550px;
-}
-
 .event-description {
   padding: 91px 0px;
   text-align: center;
@@ -215,6 +258,85 @@ export default {
     font-family: $family-work-sans;
     text-transform: uppercase;
     letter-spacing: 28px;
+  }
+}
+
+.waves,
+.more,
+.close {
+  position: absolute;
+}
+
+.waves {
+  left: -40px;
+  top: -30px;
+  z-index: 0;
+}
+
+.more {
+  right: calc(50% - 16px);
+  bottom: 50%;
+  z-index: 0;
+}
+
+.close {
+  right: calc(50% - 37px);
+  bottom: 20%;
+}
+
+@media only screen and (min-width: 468px) {
+  .grid-sizer {
+    width: 100%;
+  }
+  .item {
+    width: 100%;
+    padding: 0px 10px 20px 10px;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .grid-sizer {
+    width: 50%;
+  }
+  .item {
+    width: 50%;
+    padding-bottom: 20px;
+    padding-left: 10px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .grid-sizer {
+    width: 50%;
+  }
+  .item {
+    width: 50%;
+    padding-bottom: 20px;
+    padding-left: 10px;
+
+    .img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    &:nth-child(1n + 1) {
+      .img {
+        height: 846px;
+      }
+    }
+
+    &:nth-child(2n + 1) {
+      .img {
+        height: 653px;
+      }
+    }
+
+    &:nth-child(3n + 1) {
+      .img {
+        height: 534px;
+      }
+    }
   }
 }
 </style>

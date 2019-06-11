@@ -10,7 +10,7 @@
         :wrapper-class="'default-tabs'"
         :tab-class="'default-tabs__item'"
         :tab-active-class="'default-tabs__item_active'"
-        :line-class="'default-tabs__active-line'"
+        :leaf-class="'default-tabs__active-leaf'"
         @onClick="handleClick"
       />
     </div>
@@ -28,9 +28,8 @@ import Header from "@/components/Header";
 import ShopDescription from "@/components/Shop/ShopDescription";
 import ProductList from "@/components/Shop/ProductList";
 import ShopTabs from "@/components/UI/ShopTabs";
-import { mapState, mapMutations, mapGetters } from "vuex";
 
-// tabs
+// categories name
 const TABS = [
   {
     title: "Buchete",
@@ -39,6 +38,18 @@ const TABS = [
   {
     title: "Decoratiuni",
     value: "decoratiuni"
+  },
+  {
+    title: "Aranjamente florale",
+    value: "aranjamente"
+  },
+  {
+    title: "Articole party",
+    value: "party"
+  },
+  {
+    title: "Flori la ghiveci",
+    value: "flori"
   }
 ];
 
@@ -90,7 +101,10 @@ export default {
   data() {
     return {
       tabs: TABS,
-      currentTab: this.getCurrentCategory
+      currentTab: this.getCurrentCategory,
+      tabIcon() {
+        return leafUrl;
+      }
     };
   },
   asyncData(context) {
@@ -166,52 +180,39 @@ export default {
 @import "~assets/css/main.scss";
 
 .default-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  font-family: $family-work-sans;
+  margin-bottom: 50px;
   position: relative;
-  margin: 0 auto;
   &__item {
-    display: inline-block;
-    margin: 0 5px;
-    padding: 10px;
-    padding-bottom: 8px;
-    font-size: 16px;
-    letter-spacing: 0.8px;
-    color: gray;
-    text-decoration: none;
-    border: none;
-    background-color: transparent;
-    border-bottom: 2px solid transparent;
+    z-index: 10;
+    font-weight: 800;
+    font-size: $size-4;
+    color: $color-primary-dark;
     cursor: pointer;
-    transition: all 0.25s;
+    background: none;
+    border: none;
     &_active {
-      color: black;
+      color: red;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      position: relative;
+    }
+    &_active::before {
+      content: url("../../assets/images/tableaf.svg");
+      position: absolute;
+      z-index: -1;
+      display: flex;
     }
     &:hover {
-      border-bottom: 2px solid gray;
-      color: black;
+      color: blue;
     }
     &:focus {
       outline: none;
-      border-bottom: 2px solid gray;
-      color: black;
-    }
-    &:first-child {
-      margin-left: 0;
-    }
-    &:last-child {
-      margin-right: 0;
     }
   }
-  &__active-line {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 2px;
-    background-color: black;
-    transition: transform 0.4s ease, width 0.4s ease;
-  }
-}
-.content {
-  margin-top: 30px;
-  font-size: 20px;
 }
 </style>
