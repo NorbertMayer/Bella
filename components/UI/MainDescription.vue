@@ -1,8 +1,10 @@
 <template>
   <div class="colums">
-    <div class="column is-4 is-offset-4 event-description">
-      <img src="~/assets/images/Group91.svg" alt="#">
-      <h2>Explorati selectia noastra vasta de buchete si aranjamente florale pentru a va face ocazia de neuitat</h2>
+    <div class="column is-4 is-offset-4">
+      <div class="event-description">
+        <slot name="icon"></slot>
+        <slot name="text"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -18,7 +20,7 @@ export default {};
   padding: 91px 0px;
   text-align: center;
 
-  h2 {
+  & > *:nth-child(2) {
     font-size: $size-5;
     font-family: $family-work-sans;
   }

@@ -1,8 +1,13 @@
 <template>
   <div>
-    <Header/>
+    <Header>
+      <h1 slot="headerTitle">{{ headerTitle }}</h1>
+    </Header>
     <div class="container">
-      <EventDescription/>
+      <MainDescription>
+        <img slot="icon" src="~/assets/images/Group91.svg" alt="#">
+        <p slot="text">{{catalogText}}</p>
+      </MainDescription>
       <EventsTabs/>
       <div class="masonry">
         <EventPreview
@@ -22,15 +27,22 @@
 <script>
 import Header from "@/components/Header";
 import EventPreview from "@/components/Event/EventPreview";
-import EventDescription from "@/components/Event/EventDescription";
+import MainDescription from "@/components/UI/MainDescription";
 import EventsTabs from "@/components/UI/EventsTabs";
 
 export default {
   components: {
     Header,
     EventPreview,
-    EventDescription,
+    MainDescription,
     EventsTabs
+  },
+  data() {
+    return {
+      headerTitle: "evenimente",
+      catalogText:
+        "Floraria Bella poate duce evenimentul dumneavoastra la urmatorul nivel cu designul de flori personalizat si un decor artistic unic"
+    };
   },
   asyncData(context) {
     return context.app.$storyapi

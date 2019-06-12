@@ -1,7 +1,12 @@
 <template>
   <div>
-    <Header/>
-    <ShopDescription/>
+    <Header>
+      <h1 slot="headerTitle">{{headerTitle}}</h1>
+    </Header>
+    <MainDescription>
+      <img slot="icon" src="~/assets/images/Group91.svg" alt="#">
+      <p slot="text">{{catalogText}}</p>
+    </MainDescription>
     <!-- tabs -->
     <div class="column is-12">
       <ShopTabs
@@ -25,7 +30,7 @@
 import Services from "@/components/UI/Services";
 import Review from "@/components/UI/Review";
 import Header from "@/components/Header";
-import ShopDescription from "@/components/Shop/ShopDescription";
+import MainDescription from "@/components/UI/MainDescription";
 import ProductList from "@/components/Shop/ProductList";
 import ShopTabs from "@/components/UI/ShopTabs";
 
@@ -93,7 +98,7 @@ export default {
   components: {
     Header,
     ProductList,
-    ShopDescription,
+    MainDescription,
     Services,
     Review,
     ShopTabs
@@ -102,9 +107,11 @@ export default {
     return {
       tabs: TABS,
       currentTab: this.getCurrentCategory,
-      tabIcon() {
-        return leafUrl;
-      }
+      headerTitle: "shop",
+      catalogText:
+        "Explorati selectia noastra vasta de buchete si aranjamente florale pentru a va face ocazia de neuitat",
+      servicesText:
+        "Asiguram livrare la domiciliu pentru comenzile online in Baia Mare"
     };
   },
   asyncData(context) {

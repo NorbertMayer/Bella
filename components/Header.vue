@@ -1,9 +1,9 @@
 <template>
   <div class="header-section">
     <MainMenu/>
-    <div class="ev-header" :style="{ backgroundImage: `url(${backgroundUrl})` }">
-      <div class="ev-header-overlay"></div>
-      <div class="ev-content">
+    <div class="header" :style="{ backgroundImage: `url(${backgroundUrl})` }">
+      <div class="header__overlay"></div>
+      <div class="header__content">
         <div class="ev-header-leaf-one">
           <img src="~/assets/images/Group91.svg" alt="#">
         </div>
@@ -22,8 +22,9 @@
         <div class="ev-header-leaf-six">
           <img src="~/assets/images/Group66.svg" alt="#">
         </div>
-
-        <h1>Evenimente</h1>
+        <div class="header-section__title">
+          <slot name="headerTitle"></slot>
+        </div>
       </div>
     </div>
   </div>
@@ -49,9 +50,14 @@ export default {
 
 .header-section {
   position: relative;
+
+  &__title {
+    width: 525px;
+    text-align: center;
+  }
 }
 
-.ev-header {
+.header {
   position: relative;
   display: flex;
   width: 100%;
@@ -66,7 +72,7 @@ export default {
   background-position: center;
   background-size: cover;
 
-  .ev-header-overlay {
+  &__overlay {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -74,18 +80,9 @@ export default {
     opacity: 0.8;
   }
 
-  .ev-hero {
+  &__content {
     position: absolute;
-    width: 100%;
-    height: 550px;
-
-    img {
-      height: auto;
-    }
-  }
-
-  .ev-content {
-    position: absolute;
+    display: flex;
 
     .ev-header-leaf-one,
     .ev-header-leaf-two,
