@@ -20,7 +20,7 @@
       />
     </div>
     <!-- catalogue -->
-    <ProductList :products="products"/>
+    <ProductList :products="filteredProducts"/>
     <Services/>
     <Review/>
   </div>
@@ -70,11 +70,6 @@ const loadCategory = ({
     .get(`cdn/stories/`, {
       version: version,
       starts_with: "product/",
-      filter_query: {
-        Category: {
-          in: `${category}`
-        }
-      },
       cv: cacheVersion
     })
     .then(res => {
@@ -85,6 +80,7 @@ const loadCategory = ({
             title: product.content.title,
             price: product.content.price,
             slug: product.slug,
+            category: product.content.Category,
             description: product.content.description,
             gallery: product.content.gallery
           };
@@ -158,20 +154,21 @@ export default {
     });
   },
   computed: {
-    // products() {
-    //   return this.$store.getters.GET_PRODUCTS.map(product => {
-    //     return {
-    //       thumbnail: product.content.thumbnail,
-    //       title: product.content.title,
-    //       price: product.content.price,
-    //       slug: product.slug,
-    //       description: product.content.description,
-    //       gallery: product.content.gallery
-    //     };
-    //   });
-    // }
     getCurrentCategory() {
       return this.$store.state.selectedCategory;
+    },
+    filteredProducts() {
+      let filteredProducts;
+      if(this.currentTab){
+        filteredProducts = this.products.filter((product, index) => {
+          return this.currentTab === product.category;
+        });
+      }else{
+        filteredProducts = this.products.filter((product, index) => {
+          return product.category === "buchete";// Initial tab
+        });
+      }
+      return filteredProducts;
     }
   },
   methods: {
