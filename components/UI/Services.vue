@@ -1,27 +1,27 @@
 <template>
   <div class="container">
-    <div class="row shop-services-wrap">
+    <div class="row services">
       <div class="column is-4 is-offset-4">
-        <div class="shop-services-description">
+        <div class="services__description">
           <img src="~/assets/images/Group91.svg" alt="#">
           <p>Asiguram livrare la domiciliu pentru comenzile online in Baia Mare</p>
         </div>
       </div>
       <div class="column is-8 is-offset-2">
-        <div class="shop-services">
-          <div class="shop-services-item">
+        <div class="services__shop">
+          <div class="services__shop_item">
             <img src="~/assets/images/013-security.svg" alt="#">
             <p>Plati securizate</p>
           </div>
-          <div class="shop-services-item">
+          <div class="services__shop_item">
             <img src="~/assets/images/013-security.svg" alt="#">
             <p>Transport gratuit</p>
           </div>
-          <div class="shop-services-item">
+          <div class="services__shop_item">
             <img src="~/assets/images/009-hourglass.svg" alt="#">
             <p>Livrare in 2 ore</p>
           </div>
-          <div class="shop-services-item">
+          <div class="services__shop_item">
             <img src="~/assets/images/002-block-1.svg" alt="#">
             <p>Garantia calitatii</p>
           </div>
@@ -38,21 +38,22 @@ export default {};
 <style lang="scss">
 @import "~assets/css/main.scss";
 
-.shop-services-wrap {
+.services {
   font-size: $size-5;
   font-family: $family-work-sans;
   margin-bottom: 160px;
 
-  .shop-services-description {
+  &__description {
     text-align: center;
     margin-bottom: 30px;
   }
 
-  .shop-services {
+  &__shop {
     display: flex;
     justify-content: space-between;
+    text-align: center;
 
-    .shop-services-item {
+    &_item {
       display: flex;
       flex-direction: column;
 

@@ -1,12 +1,12 @@
 <template>
-  <section class="landing-page">
-    <MainMenu/>
-    <video autoplay playsinline loop ref="video">
+  <div class="landing">
+    <!-- <MainMenu/> -->
+    <video autoplay loop ref="video" class="landing__video">
       <source src="~/assets/video/video-landing.mp4">
     </video>
 
-    <div class="video-overlay">
-      <div class="landing-page-content">
+    <div class="landing__overlay">
+      <div class="landing__overlay_content">
         <div class="content-left">
           <h1>SHOP</h1>
           <p>Buchete &amp; aranjamente exclusive</p>
@@ -21,11 +21,14 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
+"use strict";
 import MainMenu from "@/components/UI/MainMenu";
+
+// https://stackoverflow.com/questions/41544463/how-to-set-a-div-style-in-reaction-to-a-vue-js-data-member-change
 
 export default {
   layout: "landing",
@@ -33,61 +36,43 @@ export default {
     MainMenu
   },
   data() {
-    return {
-      videoRatio: null
-    };
+    return {};
   },
   mounted() {
     this.setContainerHeight();
+    this.setContainerWidth();
+    this.setVideoSize();
+    window.addEventListener("resize", e => {
+      this.resize();
+    });
 
-    if (this.videoCanPlay()) {
-      this.$refs.video.oncanplay = () => {
-        if (!this.$refs.video) return;
-
-        this.videoRatio =
-          this.$refs.video.videoWidth / this.$refs.video.videoHeight;
-        this.setVideoSize();
-        this.$refs.video.style.visibility = "visible";
-      };
-    }
-
-    window.addEventListener("resize", this.resize);
+    console.log(this.$refs);
   },
-
   beforeDestroy() {
-    window.removeEventListener("resize", this.resize);
+    window.addEventListener("resize", e => {
+      this.resize();
+    });
   },
-
   methods: {
     resize() {
       this.setContainerHeight();
-
-      if (this.videoCanPlay()) {
-        this.setVideoSize();
-      }
+      this.setContainerWidth();
+      this.setVideoSize();
     },
+    setContainerWidth() {
+      this.$el.style.width = window.innerWidth;
 
-    videoCanPlay() {
-      return !!this.$refs.video.canPlayType;
+      console.log(this.$el);
     },
-
     setContainerHeight() {
-      this.$el.style.height = `${window.innerHeight}px`;
+      this.$el.style.height = window.innerHeight;
     },
-
     setVideoSize() {
-      var width,
-        height,
-        containerRatio = this.$el.offsetWidth / this.$el.offsetHeight;
+      let width = this.$el.offsetWidth;
+      let height = this.$el.offsetHeight;
 
-      if (containerRatio > this.videoRatio) {
-        width = this.$el.offsetWidth;
-      } else {
-        height = this.$el.offsetHeight;
-      }
-
-      this.$refs.video.style.width = width ? `${width}px` : "auto";
-      this.$refs.video.style.height = height ? `${height}px` : "auto";
+      this.$refs.video.videoWidth = window.innerWidth;
+      this.$refs.video.videoHeight = window.innerHeight;
     }
   }
 };
@@ -96,18 +81,20 @@ export default {
 <style lang="scss">
 @import "~assets/css/main.scss";
 
-.landing-page {
+.landing {
   position: relative;
   background-size: cover;
   background-position: center;
   overflow: hidden;
   overflow-y: hidden !important;
+  height: 100vh;
+  width: 100%;
 
-  video {
+  &__video {
     position: absolute;
   }
 
-  .video-overlay {
+  &__overlay {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -118,7 +105,7 @@ export default {
     justify-content: center;
     align-items: center;
 
-    .landing-page-content {
+    &_content {
       display: flex;
       width: 100%;
       max-width: 1152px;
@@ -156,3 +143,5 @@ export default {
   }
 }
 </style>
+
+

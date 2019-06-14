@@ -1,25 +1,26 @@
 <template>
   <div class="header-section">
+    <!-- add MainMenu component -->
     <MainMenu/>
     <div class="header" :style="{ backgroundImage: `url(${backgroundUrl})` }">
       <div class="header__overlay"></div>
       <div class="header__content">
-        <div class="ev-header-leaf-one">
+        <div class="header__content_leaf-one">
           <img src="~/assets/images/Group91.svg" alt="#">
         </div>
-        <div class="ev-header-leaf-two">
+        <div class="header__content_leaf-two">
           <img src="~/assets/images/Group68.svg" alt="#">
         </div>
-        <div class="ev-header-leaf-three">
+        <div class="header__content_leaf-three">
           <img src="~/assets/images/Path261.svg" alt="#">
         </div>
-        <div class="ev-header-leaf-four">
+        <div class="header__content_leaf-four">
           <img src="~/assets/images/Path242.svg" alt="#">
         </div>
-        <div class="ev-header-leaf-five">
+        <div class="header__content_leaf-five">
           <img src="~/assets/images/Path241.svg" alt="#">
         </div>
-        <div class="ev-header-leaf-six">
+        <div class="header__content_leaf-six">
           <img src="~/assets/images/Group66.svg" alt="#">
         </div>
         <div class="header-section__title">
@@ -84,41 +85,41 @@ export default {
     position: absolute;
     display: flex;
 
-    .ev-header-leaf-one,
-    .ev-header-leaf-two,
-    .ev-header-leaf-three,
-    .ev-header-leaf-four,
-    .ev-header-leaf-five,
-    .ev-header-leaf-six {
+    &_leaf-one,
+    &_leaf-two,
+    &_leaf-three,
+    &_leaf-four,
+    &_leaf-five,
+    &_leaf-six {
       position: absolute;
     }
 
-    .ev-header-leaf-one {
+    &_leaf-one {
       top: -60px;
       left: 90px;
     }
 
-    .ev-header-leaf-two {
+    &_leaf-two {
       left: -85px;
       top: -10px;
     }
 
-    .ev-header-leaf-three {
+    &_leaf-three {
       bottom: -90px;
       left: 50px;
     }
 
-    .ev-header-leaf-four {
+    &_leaf-four {
       bottom: -80px;
       right: 155px;
     }
 
-    .ev-header-leaf-five {
+    &_leaf-five {
       right: -20px;
       bottom: -60px;
     }
 
-    .ev-header-leaf-six {
+    &_leaf-six {
       right: 35px;
       bottom: 40px;
     }

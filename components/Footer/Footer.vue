@@ -1,9 +1,9 @@
 <template>
-  <footer>
-    <div class="footer-leaf-one">
+  <footer class="appfooter">
+    <div class="appfooter__leaf-one">
       <img src="~/assets/images/leaves.png" alt="#">
     </div>
-    <div class="footer-leaf-two">
+    <div class="appfooter__leaf-two">
       <img src="~/assets/images/leaf2.png" alt="#">
     </div>
     <div class="container">
@@ -11,9 +11,9 @@
         <div class="footer-top">
           <div class="columns">
             <div class="column is-3">
-              <div class="nav">
+              <div class="footer-top__nav">
                 <p class="footer-title">Meniu</p>
-                <nuxt-link to="/products">Shop</nuxt-link>
+                <nuxt-link to="/product">Shop</nuxt-link>
                 <nuxt-link to="/events">Evenimente</nuxt-link>
                 <nuxt-link to="/events">
                   Politica
@@ -22,7 +22,7 @@
               </div>
             </div>
             <div class="column is-3">
-              <div class="footer-contact">
+              <div class="footer-top__contact">
                 <p class="footer-title">Informatiile magazinului</p>
                 <p>
                   <span>
@@ -38,7 +38,7 @@
             </div>
             <div class="column is-2">
               <p class="footer-title">Urmareste-ne</p>
-              <div class="footer-social">
+              <div class="footer-top__social">
                 <div>
                   <img src="~/assets/images/facebook.svg" alt="#">
                 </div>
@@ -47,7 +47,7 @@
                 </div>
               </div>
               <p class="footer-title">Plati sigure prin:</p>
-              <div class="footer-payment">
+              <div class="footer-top__payment">
                 <div>
                   <img src="~/assets/images/visa.svg" alt="#">
                 </div>
@@ -57,7 +57,7 @@
               </div>
             </div>
             <div class="column is-4">
-              <div class="footer-newsletter">
+              <div class="footer-top__newsletter">
                 <p class="footer-title">Aboneaza-te la newsletter</p>
                 <Newsletter/>
               </div>
@@ -86,19 +86,19 @@ export default {
 <style lang="scss" scoped>
 @import "~assets/css/main.scss";
 
-footer {
+.appfooter {
   font-size: $size-6;
   font-family: $family-work-sans;
   position: relative;
   overflow: hidden;
 
-  .footer-leaf-one {
+  &__leaf-one {
     position: absolute;
     bottom: -80px;
     right: -210px;
   }
 
-  .footer-leaf-two {
+  &__leaf-two {
     position: absolute;
     bottom: -360px;
     right: -150px;
@@ -106,28 +106,30 @@ footer {
 
   .footer-top {
     padding: 115px 0px;
-  }
-  .nav {
-    display: flex;
-    flex-direction: column;
 
-    a {
-      color: $color-primary-dark;
+    &__nav {
+      display: flex;
+      flex-direction: column;
+
+      a {
+        color: $color-primary-dark;
+      }
+    }
+
+    &__social,
+    &__payment {
+      display: flex;
+
+      img {
+        margin-right: 20px;
+      }
     }
   }
+
   .footer-title {
     font-weight: 600;
     color: $color-black;
     padding-bottom: 20px;
-  }
-
-  .footer-social,
-  .footer-payment {
-    display: flex;
-
-    img {
-      margin-right: 20px;
-    }
   }
 
   .footer-bottom {

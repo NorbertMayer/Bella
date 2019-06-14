@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <div class="main-menu">
-      <div class="main-menu-burger"></div>
-      <nuxt-link to="/" class="main-menu-logo">
+    <div class="menu">
+      <div class="menu__burger"></div>
+      <nuxt-link to="/" class="menu__logo">
         <img src="~/assets/images/logo.png" alt="#">
       </nuxt-link>
-      <div class="main-menu-basket">
+      <div class="menu__basket">
         <img src="~/assets/images/shopping.svg" alt="#">
       </div>
     </div>
@@ -18,7 +18,7 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-.main-menu {
+.menu {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -27,7 +27,7 @@ export default {};
   align-items: flex-end;
   position: absolute;
 
-  .main-menu-logo {
+  &__logo {
     width: 100px;
   }
 }

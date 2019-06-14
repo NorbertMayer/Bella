@@ -1,9 +1,9 @@
 <template>
   <div class="newsletter">
-    <div class="item">
+    <div class="newsletter__item">
       <input type="text" placeholder="Adresa ta de email">
     </div>
-    <div class="item">
+    <div class="newsletter__item">
       <button>Trimite</button>
     </div>
   </div>
