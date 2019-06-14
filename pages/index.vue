@@ -1,7 +1,7 @@
 <template>
   <div class="landing">
     <!-- <MainMenu/> -->
-    <video autoplay loop ref="video" class="landing__video">
+    <video autoplay playsinline loop :muted="muted" ref="video">
       <source src="~/assets/video/video-landing.mp4">
     </video>
 
@@ -35,44 +35,68 @@ export default {
   components: {
     MainMenu
   },
+  props: {
+    muted: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
-    return {};
+    return {
+      videoRatio: null
+    };
   },
   mounted() {
+    this.setImageUrl();
     this.setContainerHeight();
-    this.setContainerWidth();
-    this.setVideoSize();
-    window.addEventListener("resize", e => {
-      this.resize();
-    });
-
-    console.log(this.$refs);
+    if (this.videoCanPlay()) {
+      this.$refs.video.oncanplay = () => {
+        if (!this.$refs.video) return;
+        this.videoRatio =
+          this.$refs.video.videoWidth / this.$refs.video.videoHeight;
+        this.setVideoSize();
+        this.$refs.video.style.visibility = "visible";
+      };
+    }
+    window.addEventListener("resize", this.resize);
   },
   beforeDestroy() {
-    window.addEventListener("resize", e => {
-      this.resize();
-    });
+    window.removeEventListener("resize", this.resize);
   },
   methods: {
     resize() {
       this.setContainerHeight();
-      this.setContainerWidth();
-      this.setVideoSize();
+      if (this.videoCanPlay()) {
+        this.setVideoSize();
+      }
     },
-    setContainerWidth() {
-      this.$el.style.width = window.innerWidth;
+    videoCanPlay() {
+      return !!this.$refs.video.canPlayType;
+    },
+    setImageUrl() {
+      if (this.img) {
+        this.$el.style.backgroundImage = `url(${this.img})`;
+      }
+    },
+    setContainerHeight() {
+      this.$el.style.height = `${window.innerHeight}px`;
+    },
+    setVideoSize() {
+      var width,
+        height,
+        containerRatio = this.$el.offsetWidth / this.$el.offsetHeight;
+      if (containerRatio > this.videoRatio) {
+        width = this.$el.offsetWidth;
+      } else {
+        height = this.$el.offsetHeight;
+      }
+      this.$refs.video.style.width = width ? `${width}px` : "auto";
+      this.$refs.video.style.height = height ? `${height}px` : "auto";
 
       console.log(this.$el);
     },
-    setContainerHeight() {
-      this.$el.style.height = window.innerHeight;
-    },
-    setVideoSize() {
-      let width = this.$el.offsetWidth;
-      let height = this.$el.offsetHeight;
-
-      this.$refs.video.videoWidth = window.innerWidth;
-      this.$refs.video.videoHeight = window.innerHeight;
+    getMediaType(src) {
+      return "video/" + src.split(".").pop();
     }
   }
 };
@@ -86,12 +110,13 @@ export default {
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  overflow-y: hidden !important;
-  height: 100vh;
-  width: 100%;
 
-  &__video {
+  video {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    visibility: hidden;
+    transform: translate(-50%, -50%);
   }
 
   &__overlay {
