@@ -17,7 +17,7 @@
     "imagesloaded": "^4.1.4",
     "marked": "^0.6.2",
     "masonry-layout": "^4.2.2",
-    "nuxt": "^2.4.0",
+    "nuxt": "^2.15.8",
     "storyblok-nuxt": "^1.0.1",
     "vue-masonry": "^0.11.7"
   },
